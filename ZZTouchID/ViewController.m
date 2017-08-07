@@ -40,8 +40,15 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    _touchIDView.hidden = NO;
     BOOL isOn = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SwitchIsOn"] boolValue];
     _touchIDSwitch.on = isOn;
+    
+    TouchIDVerify *touchid = [[TouchIDVerify alloc] init];
+    if (![touchid deviceIsCanEvaluatePolicy]) {
+        _touchIDView.hidden = YES;
+    }
 }
 
 #pragma mark - 退出登录
